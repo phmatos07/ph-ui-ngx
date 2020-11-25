@@ -45,6 +45,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -66,7 +67,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ph-ui-ngx:build"
+            "browserTarget": "ph-ui-ngx:build",
+            "sourceMap": {
+              "scripts": true,
+              "styles": true,
+              "vendor": true
+            }
           },
           "configurations": {
             "production": {
@@ -124,11 +130,11 @@
         }
       }
     },
-    "ph-ui": {
+    "@ph/ui": {
       "projectType": "library",
       "root": "projects/ph-ui",
       "sourceRoot": "projects/ph-ui/src",
-      "prefix": "pun",
+      "prefix": "phu",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -163,6 +169,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ph-ui-ngx"
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'pun-ph-ui',
+  selector: 'phu-ph-ui',
   template: `
     <p>
       ph-ui works!
