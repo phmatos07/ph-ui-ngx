@@ -3,3 +3,4 @@
  */
 
 export * from './lib/autocomplete/index';
+export * from './lib/horizontal-timeline/index';
