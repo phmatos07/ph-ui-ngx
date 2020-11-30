@@ -3,7 +3,7 @@ import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 /**
  * AUTOCOMPLETE
  * Por ser um componente genérico as Array's (lista e listaCompare)
- * estão tipadas como ANY, pois o componente precisa tratar qualquer tipo de Array
+ * estão tipadas como unknown, pois o componente precisa tratar qualquer tipo de Array
  * para renderizar a listaView no HTML.
  */
 @Component({
@@ -14,7 +14,7 @@ import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 export class AutocompleteComponent implements DoCheck {
 
   @Input()
-  lista: any[] | null = [];
+  lista = new Array<unknown>();
 
   @Input()
   propriedadeView: string | null = null;
@@ -23,78 +23,93 @@ export class AutocompleteComponent implements DoCheck {
   agruparValores = false;
 
   @Output()
-  registroEmitter = new EventEmitter<any>();
+  registroEmitter = new EventEmitter<string>();
 
-  listaView = new Array<string | number>();
-  private listaCompare = new Array<any>();
-  private readonly PRIMEIRO_REGISTRO = 0;
+  listaView = new Array<string>();
+  private listaCompare: string | null = null;
 
   ngDoCheck(): void {
     this.verificarLista();
   }
 
-  private verificarLista(): void {
+  enviarRegistro(registro: string): void {
 
-    if (this.lista && this.lista.length >= 1 && this.lista !== this.listaCompare) {
+    let registroSelecionado = null;
 
-      this.listaCompare = this.lista;
-      this.listaView = [];
-
-      if (this.propriedadeView === null) {
-        this.listaView = this.agruparValores ? this.agruparListaView(this.lista) : this.lista;
-        return;
-      }
-
-      if (this.propriedadeView) {
-        this.listaView = this.setListaView(this.lista);
-        return;
-      }
+    if (this.isArray(this.lista) && this.isPropriedadeView(this.lista)) {
+      registroSelecionado = this.lista.find((dados: string) => !!(dados[this.propriedadeView] === registro));
+    } else {
+      registroSelecionado = registro;
     }
 
-    if (!this.lista && this.listaCompare) {
-      this.listaView = [];
+    this.registroEmitter.emit(registroSelecionado);
+    this.listaView = new Array();
+  }
+
+  private verificarLista(): void {
+
+    if (!this.isArray(this.lista) && this.listaCompare) {
+      this.listaView = new Array();
+      this.listaCompare = null;
+      return;
+    }
+
+    if (this.isArray(this.lista) && JSON.stringify(this.lista) !== this.listaCompare) {
+
+      this.listaCompare = JSON.stringify(this.lista);
+      this.listaView = new Array();
+
+      if (this.propriedadeView === null) {
+        const novaLista = this.converterArray(this.lista);
+        this.listaView = this.agruparValores ? this.agruparListaView(novaLista) : novaLista;
+        return;
+      }
+
+      if (this.propriedadeView && this.isPropriedadeView(this.lista)) {
+        this.listaView = this.setListaView(this.lista);
+      }
     }
   }
 
-  private setListaView(listagem: any[]): string[] {
-    try {
-      if (listagem[0].hasOwnProperty(this.propriedadeView)) {
+  private converterArray(lista: unknown[]): string[] {
+    return this.isArray(lista) ? lista.filter((item: unknown) => typeof item === 'string') : new Array<string>();
+  }
 
-        const listView: string[] = [];
+  private setListaView(lista: unknown[]): string[] {
 
-        listagem.forEach((dados: any) => {
-          if (this.propriedadeView) {
-            listView.push(dados[this.propriedadeView]);
-          }
-        });
+    const listaView = Array<string>();
 
-        if (this.agruparValores) {
-          return this.agruparListaView(listView);
-        }
-        return listView;
+    lista.forEach((item: unknown) => {
+      if (typeof item === 'object') {
+        listaView.push(item[this.propriedadeView]);
       }
-      throw new Error('Propriedade informada não existe na lista de dados!');
-    } catch (e) {
-      console.error(e);
-      return [];
-    }
+    });
+
+    return this.agruparValores ? this.agruparListaView(listaView) : listaView;
   }
 
   private agruparListaView(listaView: string[]): string[] {
     return listaView.filter((parametro: string, index: number) => listaView.indexOf(parametro) === index);
   }
 
-  enviarRegistro(registro: string | number): void {
+  private isArray(lista: unknown): lista is [] {
+    return Array.isArray(lista) && lista.length > 0;
+  }
 
-    let registroSelecionado: any = null;
+  private isPropriedadeView(lista: unknown[]): boolean {
+    try {
 
-    if (this.propriedadeView && this.lista && this.lista[this.PRIMEIRO_REGISTRO].hasOwnProperty(this.propriedadeView)) {
-      registroSelecionado = this.lista.find((dados: any) => !!(this.propriedadeView && dados[this.propriedadeView] === registro));
-    } else {
-      registroSelecionado = registro;
+      const isArray = this.isArray(lista);
+      const isPropriedade = lista.every((item: unknown) => typeof item === 'object' && item.hasOwnProperty(this.propriedadeView));
+
+      if (isArray && isPropriedade) {
+        return true;
+      }
+      throw new Error(`Propriedade ${this.propriedadeView} não existe na lista de dados!`);
+
+    } catch (error) {
+      console.error(error);
+      return false;
     }
-
-    this.registroEmitter.emit(registroSelecionado);
-    this.listaView = [];
   }
 }
