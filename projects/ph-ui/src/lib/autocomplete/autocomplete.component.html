@@ -1,0 +1,14 @@
+<div
+  class="options-list"
+  *ngIf="listaView.length > 0"
+>
+  <ul>
+    <li *ngFor="let lista of listaView">
+      <a
+        href="javascript:void(0)"
+        [title]="lista"
+        (click)="enviarRegistro(lista)"
+      >{{ lista }}</a>
+    </li>
+  </ul>
+</div>

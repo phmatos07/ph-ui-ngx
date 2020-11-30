@@ -45,6 +45,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -66,7 +67,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ph-ui-ngx:build"
+            "browserTarget": "ph-ui-ngx:build",
+            "sourceMap": {
+              "scripts": true,
+              "styles": true,
+              "vendor": true
+            }
           },
           "configurations": {
             "production": {
@@ -123,6 +129,47 @@
           }
         }
       }
-    }},
+    },
+    "@ph/ui": {
+      "projectType": "library",
+      "root": "projects/ph-ui",
+      "sourceRoot": "projects/ph-ui/src",
+      "prefix": "phu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ph-ui/tsconfig.lib.json",
+            "project": "projects/ph-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ph-ui/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ph-ui/src/test.ts",
+            "tsConfig": "projects/ph-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/ph-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ph-ui/tsconfig.lib.json",
+              "projects/ph-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "defaultProject": "ph-ui-ngx"
 }

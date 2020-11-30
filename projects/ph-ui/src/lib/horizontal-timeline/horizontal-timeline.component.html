@@ -1,0 +1,24 @@
+<section
+  class="horizontal-timeline"
+  *ngIf="quantityValues > 0"
+>
+  <div
+    class="line-and-point"
+    [class.flex-grow-2]="lastValue === id"
+    *ngFor="let point of pointsInTime; let id = index; trackBy: trackByPointsInTime"
+  >
+    <span class="line"></span>
+    <p
+      class="circle"
+      [class.active-point]="positionIndex === id"
+      [class.larger-width]="lastValue === id"
+    >
+      <span>{{ point }}</span>
+    </p>
+    <span
+      class="line"
+      *ngIf="lastValue === id"
+    ></span>
+  </div>
+
+</section>
