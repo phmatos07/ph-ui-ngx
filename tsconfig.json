@@ -16,7 +16,7 @@
       "dom"
     ],
     "paths": {
-      "ph-ui": [
+      "@ph/ui": [
         "dist/ph-ui/ph-ui",
         "dist/ph-ui"
       ]
