@@ -1,0 +1,90 @@
+/* .carousel-slider {
+  $to-move: space(small) - rem(2px);
+
+  position: relative;
+  margin: {
+    top: space(small);
+    bottom: space(small);
+  };
+
+  @include respond-to(medium) {
+    margin: {
+      top: 0;
+      bottom: space(small);
+    };
+  }
+
+  button {
+    @include button-reset;
+    position: absolute;
+    top: 50%;
+    z-index: layer(highest);
+    transform: translateY(-50%);
+    color: color(light, lightest);
+    font-size: space(large);
+
+    &:hover {
+      color: color(main-button, hover);
+    }
+  }
+
+  .previous {
+    left: space(small);
+
+    &:active {
+      left: $to-move;
+    }
+  }
+
+  .next {
+    right: space(small);
+
+    &:active {
+      right: $to-move;
+    }
+  }
+}
+
+.banner {
+  display: none;
+
+  img {
+    width: 100%;
+    border-radius: $border-radius-base;
+  }
+
+  &.active {
+    display: block;
+  }
+}
+
+.pagination {
+  @include flex-container(center);
+
+  button {
+    width: space(small);
+    height: space(small);
+
+    padding: rem(2px);
+    margin: {
+      right: space(small);
+      bottom: space(small);
+      left: space(small);
+    };
+
+    background-color: color(light, lighter);
+    border: $border-width-base solid color(main-button);
+    border-radius: 100%;
+
+    &:hover {
+      background-color: color(main-button, hover);
+      border: 0;
+    }
+
+    &.active-button {
+      background-color: color(main-button, hover);
+      border: 0;
+    }
+  }
+}
+ */
