@@ -1,25 +1,11 @@
-<!-- <section class="carousel-slider"> -->
-<section>
-
+<div class="controllers">
   <button
     type="button"
     (click)="previous()"
     *ngIf="sliderLength > 1"
   >
-    --
+    <<
   </button>
-
-  <a
-    href="javascript:void(0);"
-    *ngFor="let slider of sliders; trackBy: trackBySlider"
-    (click)="click(slider)"
-  >
-    <img
-      src="{{ slider.src }}"
-      alt="{{ slider.alt }}"
-    >
-  </a>
-
   <button
     type="button"
     (click)="next()"
@@ -27,16 +13,31 @@
   >
     >>
   </button>
-</section>
+</div>
 
-<div
+<a
+  *ngFor="let slider of sliders; trackBy: trackBySlider"
+  class="slider"
+  [href]="getHref(slider.href)"
+  [target]="getTarget(slider.target)"
+  [class.slider-active]="slider.isActivated"
+  (click)="click(slider)"
+>
+  <img
+    src="{{ slider.src }}"
+    alt="{{ slider.alt }}"
+  >
+</a>
+
+<section
   class="pagination"
   *ngIf="sliderLength > 1"
 >
   <button
-    type="button"
     *ngFor="let slider of sliders; let id = index; trackBy: trackBySlider"
+    type="button"
+    [class.button-active]="slider.isActivated"
     (click)="activateBanner(id)"
   >
   </button>
-</div>
+</section>

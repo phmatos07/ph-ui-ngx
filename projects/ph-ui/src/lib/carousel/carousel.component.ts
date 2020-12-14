@@ -1,31 +1,29 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Carousel } from './carousel.interface';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Carousel } from './model/carousel.interface';
+import { Target } from './model/target.enum';
 
 @Component({
   selector: 'phu-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit, OnChanges {
+export class CarouselComponent implements OnInit {
 
   @Input()
   sliders = new Array<Carousel>();
 
-  @Output()
-  sliderEmitter = new EventEmitter<Carousel>();
+  @Input()
+  seconds = 7;
 
-  private activeBannerIndex: number | null = null;
-  private setInterval: number | null = null;
-  private lastBanner: number | null = null;
+  @Output()
+  carouselEmitter = new EventEmitter<Carousel>();
+
+  private idActiveSlider: number | null = null;
+  private idLastSlider: number | null = null;
+  private setInterval: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit(): void {
     this.startCarousel();
-  }
-
-  ngOnChanges(): void {
-    // Verificar necessidade
-    /* this.startCarousel();
-    this.updateCurrentPosition(); */
   }
 
   /**
@@ -44,7 +42,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   @HostListener('mouseout')
   onMouseOut(): void {
     if (this.sliderLength > 1) {
-      this.startCarouselRepeating();
+      this.startCarouselRepeating(this.seconds);
     }
   }
 
@@ -52,17 +50,25 @@ export class CarouselComponent implements OnInit, OnChanges {
     return index;
   }
 
+  getHref(href: string): string {
+    return typeof href === 'string' && href || 'javascript:void(0);';
+  }
+
+  getTarget(target: Target): string {
+    return typeof target === 'string' && target || Target.SELF;
+  }
+
   /**
    * @description: Método responsável por retorna um banner a posição anterior.
    */
   previous(): void {
 
-    this.disableCurrentBanner();
+    this.disableCurrentSlider();
 
-    if (this.activeBannerIndex === 0) {
-      this.sliders[this.lastBanner].isActivated = true;
+    if (this.idActiveSlider === 0) {
+      this.sliders[this.idLastSlider].isActivated = true;
     } else {
-      this.sliders[this.activeBannerIndex - 1].isActivated = true;
+      this.sliders[this.idActiveSlider - 1].isActivated = true;
     }
   }
 
@@ -70,12 +76,12 @@ export class CarouselComponent implements OnInit, OnChanges {
    * @description: Método responsável por avançar a posição atual de um banner.
    */
   next(): void {
-    this.disableCurrentBanner();
+    this.disableCurrentSlider();
 
-    if (this.activeBannerIndex >= this.lastBanner) {
+    if (this.idActiveSlider >= this.idLastSlider) {
       this.sliders[0].isActivated = true;
     } else {
-      this.sliders[this.activeBannerIndex + 1].isActivated = true;
+      this.sliders[this.idActiveSlider + 1].isActivated = true;
     }
   }
 
@@ -84,7 +90,7 @@ export class CarouselComponent implements OnInit, OnChanges {
    * @param id: número referente a lista de dados do Carroseul-slider
    */
   activateBanner(id: number): void {
-    this.disableCurrentBanner();
+    this.disableCurrentSlider();
     this.sliders[id].isActivated = true;
   }
 
@@ -93,12 +99,9 @@ export class CarouselComponent implements OnInit, OnChanges {
    * @param banner: Campanha que será exibida
    */
   click(slider: Carousel): void {
-
-    /* const isQuantidadeProdutos = slider && slider.quantidadeProdutos && slider.quantidadeProdutos > 0;
-
-    if (isQuantidadeProdutos && slider.id) {
-      this.sliderEmitter.emit(slider);
-    } */
+    if (this.sliderLength > 0) {
+      this.carouselEmitter.emit(slider);
+    }
   }
 
   /**
@@ -111,7 +114,7 @@ export class CarouselComponent implements OnInit, OnChanges {
 
       if (this.sliderLength > 0) {
         this.sliders[0].isActivated = true;
-        this.startCarouselRepeating();
+        this.startCarouselRepeating(this.seconds);
         return;
       }
 
@@ -123,27 +126,25 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   /**
-   * @description: Atualiza a posição atual do banner ativo e o ultimo ativo.
-   */
-  private updateCurrentPosition(): void {
-
-    if (this.sliderLength > 0) {
-      this.activeBannerIndex = this.sliders.findIndex((slider: Carousel) => slider.isActivated);
-      this.lastBanner = this.sliders.length - 1;
-    }
-  }
-
-  /**
    * @description: Inicia a repetição o loop do Carousel-slider.
    * @param seconds: Tempo em segundo referente ao slider que ficará exposto até o próximo ser ativado.
    */
-  private startCarouselRepeating(seconds = 5): void {
+  private startCarouselRepeating(seconds: number): void {
 
-    this.setInterval = Number(seconds * 1000);
+    try {
 
-    setInterval(() => {
-      this.next();
-    }, this.setInterval);
+      if (seconds && typeof seconds === 'number') {
+        const time = Number(seconds * 1000);
+
+        this.setInterval = setInterval(() => {
+          this.next();
+        }, time);
+        return;
+      }
+      throw new Error('Por favor, declare valores númericos na propriedade SECONDS');
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   /**
@@ -156,15 +157,18 @@ export class CarouselComponent implements OnInit, OnChanges {
   /**
    * @description: Função para desativar o banner atual.
    */
-  private disableCurrentBanner(): void {
+  private disableCurrentSlider(): void {
 
     if (this.sliderLength > 1) {
-      this.updateCurrentPosition();
-      this.sliders[this.activeBannerIndex].isActivated = false;
+      this.idActiveSlider = this.sliders.findIndex((slider: Carousel) => slider.isActivated);
+      this.idLastSlider = this.sliders.length - 1;
+      this.sliders[this.idActiveSlider].isActivated = false;
     }
   }
 
   get sliderLength(): number {
     return Array.isArray(this.sliders) && this.sliders.length || 0;
   }
+
+
 }
