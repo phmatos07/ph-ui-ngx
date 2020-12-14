@@ -1,90 +1,60 @@
-/* .carousel-slider {
-  $to-move: space(small) - rem(2px);
+$carousel-height: 500px;
+$carousel-border-radius: 5px;
+$border-thickness: 2px;
+$border-color: #026685;
+$border: #026685;
+$paging-button-color: #b4b4b4;
+$paging-button-color-hover: $border;
 
-  position: relative;
-  margin: {
-    top: space(small);
-    bottom: space(small);
-  };
-
-  @include respond-to(medium) {
-    margin: {
-      top: 0;
-      bottom: space(small);
-    };
-  }
-
-  button {
-    @include button-reset;
-    position: absolute;
-    top: 50%;
-    z-index: layer(highest);
-    transform: translateY(-50%);
-    color: color(light, lightest);
-    font-size: space(large);
-
-    &:hover {
-      color: color(main-button, hover);
-    }
-  }
-
-  .previous {
-    left: space(small);
-
-    &:active {
-      left: $to-move;
-    }
-  }
-
-  .next {
-    right: space(small);
-
-    &:active {
-      right: $to-move;
-    }
-  }
-}
-
-.banner {
+.slider {
   display: none;
+  width: 100%;
+  height: $carousel-height;
 
   img {
+    display: block;
     width: 100%;
-    border-radius: $border-radius-base;
+    height: 100%;
+    border-radius: $carousel-border-radius;
   }
 
-  &.active {
+  &-active {
     display: block;
   }
 }
 
+.controllers {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: $carousel-height;
+}
+
 .pagination {
-  @include flex-container(center);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+
+  .button-active {
+    background-color: $paging-button-color-hover;
+  }
 
   button {
-    width: space(small);
-    height: space(small);
-
-    padding: rem(2px);
+    width: 15px;
+    height: 15px;
     margin: {
-      right: space(small);
-      bottom: space(small);
-      left: space(small);
-    };
-
-    background-color: color(light, lighter);
-    border: $border-width-base solid color(main-button);
-    border-radius: 100%;
+      right: 4px;
+      left: 4px;
+    }
+    background-color: $paging-button-color;
+    border: 1px solid $border;
+    border-radius: 50%;
 
     &:hover {
-      background-color: color(main-button, hover);
-      border: 0;
-    }
-
-    &.active-button {
-      background-color: color(main-button, hover);
-      border: 0;
+      background-color: $paging-button-color-hover;
     }
   }
 }
- */
