@@ -1,17 +1,33 @@
 <div class="controllers">
   <button
+    class="btn"
     type="button"
     (click)="previous()"
     *ngIf="sliderLength > 1"
   >
-    <<
+    <svg
+      class="bi"
+      width="32"
+      height="32"
+      fill="currentColor"
+    >
+      <use xlink:href="bootstrap-icons.svg#chevron-compact-left" />
+    </svg>
   </button>
   <button
+    class="btn"
     type="button"
     (click)="next()"
     *ngIf="sliderLength > 1"
   >
-    >>
+    <svg
+      class="bi"
+      width="32"
+      height="32"
+      fill="currentColor"
+    >
+      <use xlink:href="bootstrap-icons.svg#chevron-compact-right" />
+    </svg>
   </button>
 </div>
 

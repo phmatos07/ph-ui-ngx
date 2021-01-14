@@ -6,6 +6,21 @@ $border: #026685;
 $paging-button-color: #b4b4b4;
 $paging-button-color-hover: $border;
 
+.controllers {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: $carousel-height;
+
+  button {
+    &:active {
+      border: 0;
+    }
+  }
+}
+
 .slider {
   display: none;
   width: 100%;
@@ -21,15 +36,6 @@ $paging-button-color-hover: $border;
   &-active {
     display: block;
   }
-}
-
-.controllers {
-  display: flex;
-  position: absolute;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: $carousel-height;
 }
 
 .pagination {

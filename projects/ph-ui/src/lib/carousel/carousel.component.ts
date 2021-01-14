@@ -169,6 +169,4 @@ export class CarouselComponent implements OnInit {
   get sliderLength(): number {
     return Array.isArray(this.sliders) && this.sliders.length || 0;
   }
-
-
 }
