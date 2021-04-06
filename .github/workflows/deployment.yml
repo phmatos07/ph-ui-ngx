@@ -4,12 +4,7 @@ jobs:
   LINT-ALL:
     name: Analisar Código Estático
     runs-on: ubuntu-latest
-
     steps:
       - name: ESLint
       - uses: actions/setup-node@v1
       - run: npm run lint
-
-      - name: Lint/SASS
-      - uses: actions/setup-node@v1
-      - run: npm run lint:sass
