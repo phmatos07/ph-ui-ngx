@@ -1,11 +1,11 @@
-name: deployment
+name: DEPLOYMENT
 on: [push]
 jobs:
   LINT-ALL:
-    name: Analisar Código Estático
+    name: Análise de código estático (LINTER)
     runs-on: ubuntu-latest
-
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
 
       - name: ESLint
@@ -13,3 +13,4 @@ jobs:
 
       - name: Lint/SASS
         run: npm run lint:sass
+        run: bats -v
