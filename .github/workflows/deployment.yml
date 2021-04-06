@@ -13,4 +13,5 @@ jobs:
 
       - name: Lint/SASS
         run: npm run lint:sass
+        run: npm install -g bats
         run: bats -v
