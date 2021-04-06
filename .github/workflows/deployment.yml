@@ -2,7 +2,7 @@ name: DEPLOYMENT
 on: [push]
 jobs:
   LINT-ALL:
-    name: Análise de código estático (LINTER)
+    name: LINTER - (Análise de código estático)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -21,5 +21,11 @@ jobs:
     name: Builder da biblioteca
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+
       - name: Install
+        run: npm install
+
+      - name: Build
         run: npm run build:core
