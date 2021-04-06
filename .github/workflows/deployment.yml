@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
 
-      - name: Install
+      - name: Node Install
         run: npm install
 
       - name: ESLint
@@ -18,13 +18,13 @@ jobs:
         run: npm run lint:sass
 
   BUILD:
-    name: Builder - Construindo versão final da biblioteca
+    name: BUILDER - Gerando Executável
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
 
-      - name: Install
+      - name: Node Install
         run: npm install
 
       - name: Build
