@@ -5,6 +5,7 @@ jobs:
     name: Análise de código estático (LINTER)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - uses: actions/setup-node@v1
 
       - name: Install
