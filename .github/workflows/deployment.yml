@@ -16,3 +16,10 @@ jobs:
 
       - name: Lint/SASS
         run: npm run lint:sass
+
+  BUILD:
+    name: Builder da biblioteca
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install
+        run: npm run build:core
