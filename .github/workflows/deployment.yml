@@ -6,5 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ESLint
-      - uses: actions/setup-node@v1
       - run: npm run lint
