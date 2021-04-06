@@ -2,7 +2,7 @@ name: DEPLOYMENT
 on: [push]
 jobs:
   LINT-ALL:
-    name: LINTER - (Análise de código estático)
+    name: LINTER - Análise de código estático
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -18,7 +18,7 @@ jobs:
         run: npm run lint:sass
 
   BUILD:
-    name: Builder da biblioteca
+    name: Builder - Construindo versão final da biblioteca
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
