@@ -5,7 +5,10 @@ jobs:
     name: Análise de código estático (LINTER)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node
+      - uses: actions/setup-node@v1
+
+      - name: Install
+        run: npm install
 
       - name: ESLint
         run: npm run lint
