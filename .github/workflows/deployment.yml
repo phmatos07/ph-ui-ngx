@@ -1,15 +1,15 @@
 name: DEPLOYMENT
 on: [push]
 jobs:
-  LINT-ALL:
-    name: LINTER - Análise de código estático
+  DEPLOY:
+    name: Deploy da aplicação para o NPM
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
 
       - name: Node Install
-run: npm install
+        run: npm install
 
       - name: ESLint
         run: npm run lint
@@ -19,3 +19,6 @@ run: npm install
 
       - name: Build
         run: npm run build:core
+
+      - name: Build Version
+        run: echo ${{ github.run_id }}
