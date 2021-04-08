@@ -7,8 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate Tag
         run: git tag -a 1.0.0 -m 'sdsd'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
