@@ -8,10 +8,6 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
 
-      - name: Generate build number
-        uses: einaregilsson/build-number@master
-        with:
-          token: ${{ secrets.github_token }}
+      - name: Generate Tag
+        run: git tag -a 1.0.0
 
-      - name: Build
-        run: echo "$BUILD_NUMBER"
