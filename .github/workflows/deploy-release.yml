@@ -1,0 +1,30 @@
+name: DEPLOY RELEASE
+on: [push]
+jobs:
+  DEPLOY:
+    name: Deploy da biblioteca para o NPM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+
+      - name: Node Install
+        run: npm install
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Lint/SASS
+        run: npm run lint:sass
+
+      - name: Build
+        run: npm run build:core
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
+
+
+
+
