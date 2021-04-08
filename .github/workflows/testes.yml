@@ -8,5 +8,10 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
 
-      - name: MY NAME
-        run: echo $BUILD_NUMBER
+      - name: Generate build number
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+
+      - name: Build Number
+        run: echo "Build Number: $BUILD_NUMBER"
