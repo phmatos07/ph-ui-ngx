@@ -14,4 +14,4 @@ jobs:
           token: ${{ secrets.github_token }}
 
       - name: Build Number
-        run: echo "Build Number: $BUILD_NUMBER"
+        run: echo "Build Number= $BUILD_NUMBER"
