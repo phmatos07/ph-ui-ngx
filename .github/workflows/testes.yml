@@ -1,0 +1,12 @@
+name: TESTE DE COMANDOS
+on: [push]
+jobs:
+  CHECK:
+    name: TESTES
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+
+      - name: MY NAME
+        run: echo GITHUB_ENV.MY_NAME
