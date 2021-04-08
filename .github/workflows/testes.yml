@@ -9,4 +9,4 @@ jobs:
       - uses: actions/setup-node@master
 
       - name: MY NAME
-        run: echo $GITHUB_RUN_NUMBER
+        run: echo $BUILD_NUMBER
