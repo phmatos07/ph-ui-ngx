@@ -1,5 +1,5 @@
 name: DEPLOY RELEASE
-on: [push]
+# on: [push]
 jobs:
   DEPLOY:
     name: Deploy da biblioteca para o NPM

@@ -1,5 +1,5 @@
 name: CHECK BRANCH
-on: [push]
+# on: [push]
 jobs:
   CHECK:
     name: Verificando integridade da branch
