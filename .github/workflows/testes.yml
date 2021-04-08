@@ -7,8 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
-
-      - name: Generate Tag
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Tag
         run: git tag -a 1.0.0
