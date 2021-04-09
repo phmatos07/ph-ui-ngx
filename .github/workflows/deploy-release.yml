@@ -32,10 +32,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Set Version
-        run: |
-          npm version minor -m "v%s"
-          env
-          git tag
+        run: npm version minor -m "v%s"
 
       # - name: Publish
         # run: npm publish
