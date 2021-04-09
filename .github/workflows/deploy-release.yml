@@ -1,5 +1,8 @@
 name: DEPLOY RELEASE
-# on: [push]
+on:
+  pull_request:
+    branchs:
+      - 'release/*'
 jobs:
   DEPLOY:
     name: Deploy da biblioteca para o NPM
@@ -23,10 +26,13 @@ jobs:
       - name: Build
         run: npm run build:core
 
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
+      - name: Set Version
+        run: npm version minor -m "v%s"
+
+      # - name: Publish
+        # run: npm publish
+        # env:
+          # NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
 
 
 
