@@ -33,7 +33,8 @@ jobs:
 
       - name: Set Version
         run: |
-          npm version minor -f -m "v%s"
+          npm version minor -m "v%s"
+          env
           git tag
 
       # - name: Publish
