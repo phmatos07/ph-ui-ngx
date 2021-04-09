@@ -1,5 +1,9 @@
 name: CHECK BRANCH
-# on: [push]
+on:
+  pull_request:
+    branches:
+      - 'task*'
+      - 'feature/*'
 jobs:
   CHECK:
     name: Verificando integridade da branch
@@ -14,8 +18,9 @@ jobs:
       - name: ESLint
         run: npm run lint
 
-      - name: Lint/SASS
+      - name: LINT/SASS
         run: npm run lint:sass
 
       - name: Build
         run: npm run build:core
+
