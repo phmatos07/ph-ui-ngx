@@ -1,5 +1,8 @@
 name: TESTE DE COMANDOS
-on: [pull_request]
+on:
+  pull_request:
+    release/*
+
 jobs:
   CHECK:
     name: TESTES
@@ -7,9 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate Tag
-        run: echo "$GITHUB_BASE_REF"
+        run: npm version minor -m "v%s"
 
