@@ -1,7 +1,7 @@
 name: DEPLOY RELEASE
 on:
   pull_request:
-    branchs:
+    branches:
       - 'release/*'
 jobs:
   DEPLOY:
