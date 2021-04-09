@@ -11,5 +11,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate Tag
-        run: git tag -a 1.0.0 -m 'sdsd'
+        run: echo $GITHUB_HEAD_REF
 
