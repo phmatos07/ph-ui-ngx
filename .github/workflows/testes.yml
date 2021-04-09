@@ -1,5 +1,5 @@
 name: TESTE DE COMANDOS
-on: ['push']
+# on: ['push']
 
 jobs:
   CHECK:
