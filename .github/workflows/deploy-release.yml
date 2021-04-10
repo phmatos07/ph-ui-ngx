@@ -1,8 +1,8 @@
 name: DEPLOY RELEASE
-on:
-  pull_request:
-    branches:
-      - 'release/*'
+on: [push]
+  # push:
+  #   branches:
+  #     - 'master'
 jobs:
   DEPLOY:
     name: Deploy da biblioteca para o NPM
@@ -32,12 +32,14 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Set Version
-        run: npm version minor -m "v%s"
+        run: |
+          npm version minor -m "v%s"
+          git push origin --tags
 
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
+      # - name: Publish
+      #   run: npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
 
 
 
