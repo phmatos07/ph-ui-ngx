@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/phmatos07/ph-ui-ngx#readme",
   "files": [
-    "dist/*"
+    "dist/ph-ui/*"
   ],
   "scripts": {
     "dev": "ng serve",
