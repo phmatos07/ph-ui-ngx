@@ -9,6 +9,9 @@
     "url": "git+https://github.com/phmatos07/ph-ui-ngx.git"
   },
   "homepage": "https://github.com/phmatos07/ph-ui-ngx#readme",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "ng serve",
     "dev:aot": "ng serve --optimization --aot",
