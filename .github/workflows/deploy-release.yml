@@ -36,10 +36,13 @@ jobs:
           npm version minor -m "v%s"
           git push origin --tags
 
-      # - name: Publish
-      #   run: npm publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
+      - name: Publish
+         run: npm publish
+         env:
+           NODE_AUTH_TOKEN: ${{ secrets.PH_UI_NGX_SECRET }}
+
+      - name: Cleaning Files
+        run: rm -rf dist node_modules
 
 
 
