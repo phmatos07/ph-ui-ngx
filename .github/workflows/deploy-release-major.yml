@@ -1,11 +1,11 @@
-name: DEPLOY RELEASE
+name: DEPLOY RELEASE MAJOR
 on:
   push:
     branches:
       - 'master'
 jobs:
   DEPLOY:
-    name: Deploy de Minor (x.1.x) para o NPM
+    name: Deploy de Major (1.x.x) para o NPM
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -33,7 +33,7 @@ jobs:
 
       - name: Set Version
         run: |
-          npm version minor -f -m "v%s"
+          npm version major -f -m "v%s"
           git push origin --tags
 
       - name: Publish

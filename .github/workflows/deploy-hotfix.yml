@@ -1,11 +1,11 @@
-name: DEPLOY RELEASE
+name: DEPLOY HOTFIX
 on:
   push:
     branches:
       - 'master'
 jobs:
   DEPLOY:
-    name: Deploy de Minor (x.1.x) para o NPM
+    name: Deploy de Patch (x.x.1) para o NPM
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -33,7 +33,7 @@ jobs:
 
       - name: Set Version
         run: |
-          npm version minor -f -m "v%s"
+          npm version patch -f -m "v%s"
           git push origin --tags
 
       - name: Publish
