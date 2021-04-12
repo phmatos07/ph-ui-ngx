@@ -33,7 +33,7 @@ jobs:
 
       - name: Set Version
         run: |
-          npm version minor -f -m "v%s"
+          npm version mainor -f -m "v%s"
           git push origin --tags
 
       - name: Publish
