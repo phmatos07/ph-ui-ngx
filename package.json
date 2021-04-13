@@ -1,6 +1,6 @@
 {
   "name": "ph-ui-ngx",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "PH-UI-NGX é um Core desenvolvido em Angular, que tem como principal foco centralizar e compartilhar componentes visuais (Ex.: Slide, Autocomplete ou Carrossel) para aplicações web.",
   "author": "Phelipe Matos - PHMATOS07 <phelipe.matos07@gmail.com>",
   "license": "GPL-3.0",
