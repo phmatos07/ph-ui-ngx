@@ -1,8 +1,6 @@
 name: DEPLOY RELEASE
-on:
-  push:
-    branches:
-      - 'master'
+on: [push]
+
 jobs:
   DEPLOY:
     name: Deploy de Minor (x.1.x) para o NPM
